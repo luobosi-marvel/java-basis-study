@@ -19,4 +19,14 @@ public class Constants {
     public interface ConstantNumber {
         int TEN = 10;
     }
+
+    /**
+     * 关于工厂模式的一些常量
+     */
+    public interface ConstantFactory {
+        /** 产品A 的类名 */
+        String CONCREATE_PRODUCT_A = "ConcreateProductA";
+        /** 产品B 的类名 */
+        String CONCREATE_PRODUCT_B = "ConcreateProductB";
+    }
 }
