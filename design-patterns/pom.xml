@@ -8,5 +8,15 @@
     <artifactId>design-patterns</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <java.basis.common.version>1.0.0</java.basis.common.version>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.luobosi.study.common</groupId>
+            <artifactId>java-basis-common</artifactId>
+            <version>${java.basis.common.version}</version>
+        </dependency>
+    </dependencies>
 </project>
