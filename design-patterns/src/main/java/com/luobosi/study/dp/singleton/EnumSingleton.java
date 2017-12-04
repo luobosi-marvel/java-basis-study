@@ -3,6 +3,8 @@
  */
 package com.luobosi.study.dp.singleton;
 
+import com.luobosi.common.constant.Constants;
+
 /**
  * EnumSingleton
  * 单例模式之枚举类型
@@ -12,4 +14,27 @@ package com.luobosi.study.dp.singleton;
  */
 public class EnumSingleton {
 
+    private EnumSingleton() {
+
+    }
+
+    public static void main(String[] args) {
+        int i = Constants.ZERO;
+        while (i < Constants.ConstantNumber.TEN) {
+            new Thread(()-> System.out.println(EnumSingletons.INSTANCE)).start();
+            i++;
+        }
+    }
 }
+
+/**
+ * 单例枚举
+ */
+enum EnumSingletons {
+    INSTANCE;
+
+    EnumSingletons() {
+        System.out.println("我执行了");
+    }
+}
+

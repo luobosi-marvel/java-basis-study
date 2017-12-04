@@ -39,7 +39,7 @@ public class OrdinarySingleton {
     }
 
     public static void main(String[] args) {
-        int i = 0;
+        int i = Constants.ZERO;
         while (i < Constants.ConstantNumber.TEN) {
             System.out.println(OrdinarySingleton.getInstance());
             i++;

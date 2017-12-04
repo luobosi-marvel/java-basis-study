@@ -11,6 +11,8 @@ package com.luobosi.common.constant;
  */
 public class Constants {
 
+    public final static int ZERO = 0;
+
     /**
      * 一些数字常量
      */

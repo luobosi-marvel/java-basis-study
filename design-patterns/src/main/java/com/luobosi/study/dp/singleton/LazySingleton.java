@@ -34,7 +34,7 @@ public class LazySingleton {
     }
 
     public static void main(String[] args) {
-        int i = 0;
+        int i = Constants.ZERO;
         while (i < Constants.ConstantNumber.TEN) {
             new Thread(()-> System.out.println(LazySingleton.getInstance())).start();
             i++;

@@ -27,7 +27,7 @@ public class InitializationOnDemandHolderSingleton {
     }
 
     public static void main(String[] args) {
-        int i = 0;
+        int i = Constants.ZERO;
         while (i < Constants.ConstantNumber.TEN) {
             new Thread(()-> System.out.println(HolderClass.instants)).start();
             i++;
