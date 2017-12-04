@@ -12,7 +12,7 @@ import com.luobosi.common.constant.Constants;
  * @author luobosi@2dfire.com
  * @since 2017-12-04
  */
-public class EagerSingletion {
+public class EagerSingleton {
 
     /**
      * 1. 私有变量
@@ -20,26 +20,26 @@ public class EagerSingletion {
      * 不足：无论系统运行时是否需要该对象，该对象都会被创建，提前占用内存
      *
      */
-    private static EagerSingletion eagerSingletion = new EagerSingletion();
+    private static EagerSingleton eagerSingletion = new EagerSingleton();
 
     /**
      * 2. 私有的构造方法
      */
-    private EagerSingletion() {}
+    private EagerSingleton() {}
 
     /**
      * 获取单例对象
      *
      * @return 返回单例对象
      */
-    public static EagerSingletion getEagerSingletion() {
+    public static EagerSingleton getEagerSingletion() {
         return eagerSingletion;
     }
 
     public static void main(String[] args) {
         int i = 0;
         while (i < Constants.ConstantNumber.TEN) {
-            System.out.println(EagerSingletion.getEagerSingletion());
+            System.out.println(EagerSingleton.getEagerSingletion());
             i++;
         }
     }
