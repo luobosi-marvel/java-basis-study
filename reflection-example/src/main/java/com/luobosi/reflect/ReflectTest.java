@@ -129,4 +129,28 @@ public class ReflectTest {
         // 调用 showInfo 方法
         showInfoMethod.invoke(person, "marvel", 21);
     }
+
+    /**
+     * 通过反射获取main方法
+     *
+     * @throws Exception 异常
+     */
+    @Test
+    public void testGetMain() throws Exception{
+        Class classPerson = Class.forName("com.luobosi.reflect.model.Person");
+        Constructor conPerson = classPerson.getConstructor(null);
+        Person person = (Person) conPerson.newInstance(null);
+        // 获取main方法
+        Method method = classPerson.getDeclaredMethod("main", String[].class);
+        /**
+         * 特别要注意：
+         * 在反射main方法时，编译器会将数组自动拆分，取第一个值
+         * 对此一般有两种方案
+         */
+        // 第一种方案：
+        // method.invoke(person, (Object)new String[]{"国色天香","21","女"});
+        // 第二种方案：
+        method.invoke(person,new Object[]{new String[]{"国色天香","21","女"}});
+
+    }
 }
