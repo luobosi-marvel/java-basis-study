@@ -4,14 +4,13 @@
 package com.luobosi.proxy.javassist;
 
 import com.google.common.collect.Lists;
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.Modifier;
-import javassist.NotFoundException;
+import javassist.*;
 import org.junit.Test;
 
 import java.net.URL;
 import java.util.List;
+
+import static javassist.Modifier.PUBLIC;
 
 /**
  * JavassistDemo
@@ -64,4 +63,90 @@ public class JavassistDemo {
         System.out.println();
     }
 
+    /**
+     * 修改类方法
+     *
+     * @throws Exception 抛出异常
+     */
+    @Test
+    public void testModifyMethod() throws Exception {
+        // 获取本地类加载器
+        ClassLoader classLoader = getLocaleClassLoader();
+        // 获取要修改的类
+        Class<?> clazz = classLoader.loadClass("com.luobosi.proxy.javassist.TestLib");
+        // 实例化类型池对象
+        ClassPool classPool = ClassPool.getDefault();
+        // 设置类搜索路径
+        classPool.appendClassPath(new ClassClassPath(clazz));
+        // 从类型池中读取指定类型
+        CtClass ctClass = classPool.get(clazz.getName());
+        // 获取 String 类型参数集合
+        CtClass[] paramTypes = {classPool.get(String.class.getName())};
+        // 获取指定方法名称
+        CtMethod method = ctClass.getDeclaredMethod("show", paramTypes);
+        // 复制方法到新方法中
+        CtMethod newMethod = CtNewMethod.copy(method, ctClass, null);
+        // 修改源方法名称
+        String oldName = method.getName() + "$Impl";
+        method.setName(oldName);
+        // 修改原方法
+        newMethod.setBody("{System.out.println(\"执行前\");" + oldName + "($$);System.out.println(\"执行后\");}");
+        // 将新方法添加到类中
+        ctClass.addMethod(newMethod);
+        // 加载重新编译的类     注意：这一行会将类冻结，无法在对字节码进行编辑
+        clazz = ctClass.toClass();
+        // 执行方法
+        clazz.getMethod("show", String.class).invoke(clazz.newInstance(), "hello");
+        // 解冻一个类，对应 freeze 方法
+        ctClass.defrost();
+    }
+
+    /**
+     * 动态创建类
+     *
+     * @throws Exception 异常
+     */
+    @Test
+    public void testDynamicCreateClass() throws Exception {
+        ClassPool classPool = ClassPool.getDefault();
+        // 创建一个类
+        CtClass ctClass = classPool.makeClass("com.luobosi.proxy.javassist.DynamicClass");
+        // 为类设置字段
+        CtField field = new CtField(classPool.get(String.class.getName()), "value", ctClass);
+        // 将字段类型设置为私有
+        field.setModifiers(Modifier.PRIVATE);
+        // 添加 getter 和 setter 方法
+        ctClass.addMethod(CtNewMethod.setter("setValue", field));
+        ctClass.addMethod(CtNewMethod.getter("getValue", field));
+        ctClass.addField(field);
+
+        // 添加自定义方法
+        CtMethod runMethod = new CtMethod(CtClass.voidType, "run", new CtClass[]{}, ctClass);
+        runMethod.setModifiers(PUBLIC);
+        String methodBody = "{System.out.println(this.value);}";
+        runMethod.setBody(methodBody);
+        ctClass.addMethod(runMethod);
+
+        // 为类设置构造器
+        // 设置无参数的构造方法
+        CtConstructor constructor = new CtConstructor(null, ctClass);
+        constructor.setModifiers(PUBLIC);
+        constructor.setBody("{}");
+        ctClass.addConstructor(constructor);
+        // 参数构造器
+        constructor = new CtConstructor(new CtClass[]{classPool.get(String.class.getName())}, ctClass);
+        constructor.setModifiers(PUBLIC);
+        constructor.setBody("{this.value = $1;}");
+        ctClass.addConstructor(constructor);
+
+        // 加载和执行生成的类
+        Class<?> clazz = ctClass.toClass();
+        Object instance = clazz.newInstance();
+        // 调用生成的方法
+        clazz.getMethod("setValue", String.class).invoke(instance, "hello");
+        clazz.getMethod("run").invoke(instance);
+
+        instance = clazz.getConstructor(String.class).newInstance("OK");
+        clazz.getMethod("run").invoke(instance);
+    }
 }
