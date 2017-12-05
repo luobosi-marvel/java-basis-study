@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * ReflectTest
@@ -104,5 +105,28 @@ public class ReflectTest {
         username.set(person, "marvel");
 
         System.out.println("名字：" + person.getUsername());
+    }
+
+    /**
+     * 通过反射获取方法的调用
+     *
+     * @throws Exception 异常
+     */
+    @Test
+    public void testGetMethod() throws Exception {
+        Class<?> clazz = Class.forName("com.luobosi.reflect.model.Person");
+        Constructor<?> constructor = clazz.getConstructor(null);
+        // 创建一个对象
+        Person person = (Person) constructor.newInstance(null);
+        // 获取 eat 方法
+        Method eatMethod = clazz.getDeclaredMethod("eat", null);
+        // 设置私有属性可以访问
+        eatMethod.setAccessible(true);
+        // 调用 eat 方法
+        eatMethod.invoke(person, null);
+        // 获取 showInfo 方法
+        Method showInfoMethod = clazz.getDeclaredMethod("showInfo", String.class, Integer.class);
+        // 调用 showInfo 方法
+        showInfoMethod.invoke(person, "marvel", 21);
     }
 }

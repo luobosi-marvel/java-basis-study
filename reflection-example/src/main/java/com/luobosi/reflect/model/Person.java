@@ -34,7 +34,7 @@ public class Person {
         System.out.println("带参数的show()方法" + str);
     }
 
-    public void showInfo(String name, int age){
+    public void showInfo(String name, Integer age){
         System.out.println("我的名字是："+name+"\t\t年龄："+age);
 
     }
