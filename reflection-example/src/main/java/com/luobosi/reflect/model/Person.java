@@ -42,4 +42,16 @@ public class Person {
         return "我很能吃！";
     }
 
+    /**
+     * 主函数，为了反射测试而添加
+     *
+     * @param args 系统参数
+     */
+    public static void main(String[] args) {
+        System.out.println("main方法中-------->");
+        for (String string : args) {
+            System.out.print(string+"\t\t");
+
+        }
+    }
 }
