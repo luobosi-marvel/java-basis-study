@@ -3,15 +3,14 @@
  */
 package com.luobosi.proxy.javassist;
 
-import com.google.common.collect.Lists;
 import javassist.*;
+import javassist.util.proxy.ProxyFactory;
+import javassist.util.proxy.ProxyObject;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.util.List;
 
 import static javassist.Modifier.PUBLIC;
 
@@ -21,13 +20,9 @@ import static javassist.Modifier.PUBLIC;
  * @author luobosi@2dfire.com
  * @since 2017-12-05
  */
-public class JavassistDemo {
+public class JavassistDemoTest {
 
     private static ClassLoader getLocaleClassLoader() throws Exception {
-        List<URL> classPathURLs = Lists.newArrayList();
-
-        // classPathURLs.add()
-        // lib
         return null;
     }
 
@@ -76,7 +71,7 @@ public class JavassistDemo {
         // 获取本地类加载器
         ClassLoader classLoader = getLocaleClassLoader();
         // 获取要修改的类
-        Class<?> clazz = classLoader.loadClass("com.luobosi.proxy.javassist.TestLib");
+        Class<?> clazz = classLoader.loadClass("com.luobosi.proxy.javassist.Subject");
         // 实例化类型池对象
         ClassPool classPool = ClassPool.getDefault();
         // 设置类搜索路径
@@ -152,6 +147,46 @@ public class JavassistDemo {
         instance = clazz.getConstructor(String.class).newInstance("OK");
         clazz.getMethod("run").invoke(instance);
     }
+
+    /**
+     * 创建代理类
+     *
+     * @throws Exception 异常
+     */
+    @Test
+    public void testCreateProxyClass() throws Exception {
+        // 实例化代理类工厂
+        ProxyFactory proxyFactory = new ProxyFactory();
+        // 设置父类，ProxyFactory 将会动态生成一个类，继承该父类
+        proxyFactory.setSuperclass(Subject.class);
+        // 设置过滤器，判断哪些方法调用需要被拦截
+        proxyFactory.setFilter( (method) -> method.getName().startsWith("get") );
+
+        Class<?> clazz = proxyFactory.createClass();
+        Subject subject = (Subject) clazz.newInstance();
+
+        // 这里就是代理的方法具体实现，也就是拦截处理器
+        ((ProxyObject)subject).setHandler((self, thisMethod, proceed, args) -> {
+            // 拦截后前置处理， 改写 username 属性的内容
+            // 根据实际情况可自行修改
+            System.out.println(thisMethod.getName() + "被调用");
+            try {
+                // 获取方法调用后的返回值
+                Object ret = proceed.invoke(self, args);
+                System.out.println("返回值：" + ret);
+                return ret;
+            } finally {
+                // 拦截后置处理
+                System.out.println(thisMethod.getName() + "调用完毕");
+            }
+        });
+
+        subject.setUsername("marvel");
+        subject.setPassword("123456");
+        subject.getUsername();
+        subject.getPassword();
+    }
+
 
     /**
      * 将生成的 class 文件保存到文件中
