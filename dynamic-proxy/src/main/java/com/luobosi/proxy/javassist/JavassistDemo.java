@@ -7,6 +7,9 @@ import com.google.common.collect.Lists;
 import javassist.*;
 import org.junit.Test;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -148,5 +151,18 @@ public class JavassistDemo {
 
         instance = clazz.getConstructor(String.class).newInstance("OK");
         clazz.getMethod("run").invoke(instance);
+    }
+
+    /**
+     * 将生成的 class 文件保存到文件中
+     *
+     * @param ctClass class 对象
+     * @param path    将要生成文件的路径
+     */
+    public void writeClassToFile(CtClass ctClass, String path) throws IOException, CannotCompileException {
+        byte[] bytes = ctClass.toBytecode();
+        FileOutputStream outputStream = new FileOutputStream(new File(path));
+        outputStream.write(bytes);
+        outputStream.close();
     }
 }
