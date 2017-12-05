@@ -7,10 +7,12 @@ import javassist.*;
 import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
 import org.junit.Test;
+import org.omg.CORBA.ObjectHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import static javassist.Modifier.PUBLIC;
 
@@ -187,7 +189,25 @@ public class JavassistDemoTest {
         subject.getPassword();
     }
 
+    /**
+     * 获取方法名称
+     * 关于 ”获取方法名称“，其主要作用是：当 Java 虚拟机加载 .class 文件后，会将类方法 "去名称化"，即丢弃掉方法形参
+     * 的参数名，而是用形参的序列号来传递参数。如果要通过Java 反射获取参数的参数名，则必须在编辑时指定"保留参数名称"。
+     * Javassist 则不存在这个问题，对于任意方法，都能正确的获取其参数的参数名。
+     * SpringMVC 就是通过方法参数将请求参数进行注入的，Spring 也是借助了 Javassist 来实现这一点的
+     *
+     * @throws Exception 异常
+     */
+    @Test
+    public void testGetMethodName() throws Exception{
+        // 获取本地类加载器
+        // ClassLoader classLoader = getLocaleClassLoader();
+        // 获取要修改的类
+        // Class<?> clazz = classLoader.loadClass("com.luobosi.proxy.javassist.Subject");
+        // 互殴去
+        Method[] methods = Subject.class.getMethods();
 
+    }
     /**
      * 将生成的 class 文件保存到文件中
      *
