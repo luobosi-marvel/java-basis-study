@@ -4,10 +4,12 @@
 package com.luobosi.proxy.javassist;
 
 import javassist.*;
+import javassist.bytecode.CodeAttribute;
+import javassist.bytecode.LocalVariableAttribute;
+import javassist.bytecode.MethodInfo;
 import javassist.util.proxy.ProxyFactory;
 import javassist.util.proxy.ProxyObject;
 import org.junit.Test;
-import org.omg.CORBA.ObjectHelper;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -190,7 +192,7 @@ public class JavassistDemoTest {
     }
 
     /**
-     * 获取方法名称
+     * 获取方法参数名称
      * 关于 ”获取方法名称“，其主要作用是：当 Java 虚拟机加载 .class 文件后，会将类方法 "去名称化"，即丢弃掉方法形参
      * 的参数名，而是用形参的序列号来传递参数。如果要通过Java 反射获取参数的参数名，则必须在编辑时指定"保留参数名称"。
      * Javassist 则不存在这个问题，对于任意方法，都能正确的获取其参数的参数名。
@@ -199,14 +201,39 @@ public class JavassistDemoTest {
      * @throws Exception 异常
      */
     @Test
-    public void testGetMethodName() throws Exception{
+    public void testGetMethodArgumentName() throws Exception{
         // 获取本地类加载器
         // ClassLoader classLoader = getLocaleClassLoader();
         // 获取要修改的类
         // Class<?> clazz = classLoader.loadClass("com.luobosi.proxy.javassist.Subject");
-        // 互殴去
-        Method[] methods = Subject.class.getMethods();
+        // 启动 ClassPool 容器池
+        ClassPool classPool = ClassPool.getDefault();
+        // 读取类文件到 ClassPool 容器池，并返回此类在容器中的引用 CtClass
+        CtClass ctClass = classPool.get(Subject.class.getName());
+        // 返回类方法对象数组
+        Method[] declaredMethods = Subject.class.getDeclaredMethods();
 
+        // 遍历方法名
+        for (Method method : declaredMethods) {
+            System.out.println(method.getName());
+        }
+
+        // 在引用的 CtClass 中，返回指定名称在类中声明方法，这里为了方便测试直接过去第一个
+        CtMethod declaredMethod = ctClass.getDeclaredMethod("getUsername");
+
+        // 判断是否为静态方法
+        // int staticIndex = Modifier.isStatic(declaredMethod.getModifiers()) ? 0 : 1;
+
+        // 在得到方法后，返回代表这个方法的文件
+        MethodInfo methodInfo = declaredMethod.getMethodInfo();
+        // 返回方法代码属性
+        CodeAttribute codeAttribute = methodInfo.getCodeAttribute();
+        // 在代码属性信息中返回指定名称的属性， LocalVariableAttribute.tag：这个属性的名称“LocalVariableTable”
+        LocalVariableAttribute attribute = (LocalVariableAttribute)codeAttribute.getAttribute(LocalVariableAttribute.tag);
+        // 获取第一个方法参数名称
+        String str = attribute.variableName(0).toString();
+        // 输出
+        System.out.println(str);
     }
     /**
      * 将生成的 class 文件保存到文件中
