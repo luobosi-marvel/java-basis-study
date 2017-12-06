@@ -24,6 +24,7 @@
         <module>java-basis-common</module>
         <module>dynamic-proxy</module>
         <module>reflection-example</module>
+        <module>javaio-example</module>
     </modules>
 
     <dependencies>
