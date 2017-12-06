@@ -12,4 +12,15 @@ package com.luobosi.proxy.myproxy;
  */
 public class MyClassLoader extends ClassLoader{
 
+    /** 用来存放目录 */
+    private String dir;
+
+    public MyClassLoader(String dir) {
+        this.dir = dir;
+    }
+
+    @Override
+    protected Class<?> findClass(String name) throws ClassNotFoundException {
+        return null;
+    }
 }
