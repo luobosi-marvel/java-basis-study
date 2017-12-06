@@ -19,11 +19,15 @@
     </properties>
 
     <modules>
-        <!-- Java 设计模式的练习 -->
+        <!-- JAVA 设计模式的练习 -->
         <module>design-patterns</module>
+        <!-- 这里包括了项目的一些公共处理操作 -->
         <module>java-basis-common</module>
+        <!-- 动态代理模块 -->
         <module>dynamic-proxy</module>
+        <!-- JAVA 反射练习模块 -->
         <module>reflection-example</module>
+        <!-- JAVA IO 练习模块 -->
         <module>javaio-example</module>
     </modules>
 
