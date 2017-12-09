@@ -90,3 +90,8 @@ OutputStream & Writer
             System.out.println(e.toString());
         }
     }
+
+注意点：
+    定义文件路径时，注意：可以用"/"或者"\\"。File.separator()
+    在写入一个文件时，如果目录下有同名文件将被覆盖。
+    在读取文件时，必须保证该文件已存在，否则出异常。
