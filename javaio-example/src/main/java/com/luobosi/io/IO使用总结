@@ -13,3 +13,14 @@
 推回输入流 PushbackInputStream                           PushbackReader
 特殊流      DataInputStream      DataOutputStream
 
+InputStream & Reader
+·InputStream 和 Reader 是所有输入流的基类
+·InputStream （典型实现：FileInputStream）
+    ·int read()
+    ·int read(byte[] b)
+    ·int read(byte[] b, int off, int len)
+·Reader（典型实现：FileReader）
+    ·int read()
+    ·int read(char [] c)
+    ·int read(char [] c, int off, int len)
+·程序中打开的文件 IO 资源不属于内存里的资源，垃圾回收机制无法回收该资源，所以应该显示关闭文件 IO 资源
