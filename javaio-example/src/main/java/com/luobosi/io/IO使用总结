@@ -3,12 +3,13 @@
 抽象基类      InputStream         OutputStream            Reader               Writer
 访问文件    FileInputStream     FileOutputStream        FileReader           FileWriter
 访问数组    ByteArrayInputStream ByteArrayOutputStream CharArrayReader      CharArrayWriter
-访问管道
-访问字符串
-缓冲流
-转换流
-对象流
+访问管道    PipedInputStream    PipeOutputStream         PipedReader         PipedWriter
+访问字符串                                               StringReader        StringWriter
+缓冲流      BufferedInputStream BufferedOutputStream    BufferedReader       BufferedWriter
+转换流                                                 InputStreamReader    OutputStreamWriter
+对象流     ObjectInputStream    ObjectOutputStream
+           FilterInputStream    FilterOutputStream        FilterReader          FilterWriter
+打印流                             PrintStream                                  PrintWriter
+推回输入流 PushbackInputStream                           PushbackReader
+特殊流      DataInputStream      DataOutputStream
 
-打印流
-推回输入流
-特殊流
