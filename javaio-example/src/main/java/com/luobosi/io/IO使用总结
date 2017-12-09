@@ -24,3 +24,69 @@ InputStream & Reader
     ·int read(char [] c)
     ·int read(char [] c, int off, int len)
 ·程序中打开的文件 IO 资源不属于内存里的资源，垃圾回收机制无法回收该资源，所以应该显示关闭文件 IO 资源
+
+OutputStream & Writer
+    ·void write(int b/int c);
+    ·void write(byte[] b/char[] cbuf);
+    ·void write(byte[] b/char[] buff, int off, int len);
+    ·void flush();
+    ·void close(); 需要先刷新，再关闭此流
+·因为字符流直接以字符作为操作单位，所以 Writer 可以用字符串来替换字符数组，即以 String 对象作为参数
+    ·void write(String str);
+    ·void write(String str, int off, int len);
+
+文件流
+读取文件
+
+1.建立一个流对象，将已存在的一个文件加载进流。
+    FileReader fr = new FileReader("Test.txt");
+2.创建一个临时存放数据的数组。
+    char[] ch = new char[1024];
+3.调用流对象的读取方法将流中的数据读入到数组中。
+    fr.read(ch);
+
+ FileReader fr = null;
+    try{
+        fr = new FileReader("c:\\test.txt");
+        char[] buf = new char[1024];
+        int len= 0;
+        while((len=fr.read(buf))!=-1){
+            System.out.println(new String(buf ,0,len));}
+    }catch (IOException e){
+        System.out.println("read-Exception :"+e.toString());}
+    finally{
+        if(fr!=null){
+            try{
+                fr.close();
+            }catch (IOException e){
+        System.out.println("close-Exception :"+e.toString());
+            }
+        }
+    }
+
+写入文件
+1.创建流对象，建立数据存放文件
+    FileWriter fw = new FileWriter("Test.txt");
+2.调用流对象的写入方法，将数据写入流
+    fw.write("text");
+3.关闭流资源，并将流中的数据清空到文件中。
+    fw.close();
+
+ FileWriter fw = null;
+    try{
+        fw = new FileWriter("Test.txt");
+        fw.write("text");
+
+    }
+    catch (IOException e){
+        System.out.println(e.toString());
+    }
+    finally{
+        If(fw!=null)
+        try{
+         fw.close();
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+        }
+    }
