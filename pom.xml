@@ -29,6 +29,7 @@
         <module>reflection-example</module>
         <!-- JAVA IO 练习模块 -->
         <module>javaio-example</module>
+        <module>java-spi</module>
     </modules>
 
     <dependencies>
