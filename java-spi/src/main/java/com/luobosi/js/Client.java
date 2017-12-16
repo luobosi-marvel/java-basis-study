@@ -24,6 +24,6 @@ public class Client {
             spiDemo.test();
         }
         System.out.println("end");
-
     }
+
 }
