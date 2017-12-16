@@ -14,6 +14,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <junit.version>4.12</junit.version>
+        <easymock.version>3.4</easymock.version>
         <lombok.version>1.16.18</lombok.version>
         <guava.version>22.0</guava.version>
     </properties>
@@ -29,6 +30,7 @@
         <module>reflection-example</module>
         <!-- JAVA IO 练习模块 -->
         <module>javaio-example</module>
+        <!-- JAVA SPI 模块 -->
         <module>java-spi</module>
     </modules>
 
@@ -51,6 +53,13 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymock</artifactId>
+            <version>${easymock.version}</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
