@@ -17,7 +17,12 @@ public class Constants {
      * 一些数字常量
      */
     public interface ConstantNumber {
-        int TEN = 10;
+        Integer TEN = 10;
+        Integer TWENTY = 20;
+        Integer THIRTY = 30;
+        Integer FIFTY = 50;
+        Integer HUNDRED = 100;
+
     }
 
     /**
