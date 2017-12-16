@@ -32,6 +32,7 @@
         <module>javaio-example</module>
         <!-- JAVA SPI 模块 -->
         <module>java-spi</module>
+        <module>java-junit-easymock</module>
     </modules>
 
     <dependencies>

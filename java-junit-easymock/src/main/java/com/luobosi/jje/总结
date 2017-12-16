@@ -1,0 +1,41 @@
+一、使用 EasyMock 进行单元测试
+·使用 EasyMock 生成 Mock 对象
+·设定 Mock 对象的预期行为和输出
+    在一个完整的测试过程中，一个 Mock 对象将会经历两个状态：Record 状态和 Replay 状态。Mock 对象一经创建，它的状态就被
+设置为 Record。在 Record 状态，用户可以设定 Mock 对象的预期行为和输出，这些对象行为被录制下来，保存在 Mock 对象中。
+① Mocke 对象的行为可以简单为 Mock 对象方法的调用和方法调用所产生的输出。在 EasyMock 2.3 中，对 Mock 对象行为的添加和设置
+是通过接口 IEpectationSetters 来实现的。Mock 对象方法的调用可能产生两种类型的输出：
+    （1） 产生返回值
+        如果希望方法 mockResult.getString(1) 的返回值为 "My return value"，那么你可以使用以下的语句：
+        mockResultSet.getString(1);
+        expectLastCall().andReturn("My return value");
+    （2） 抛出异常
+        对象行为的预期输出除了可能是返回值外，还有可能是抛出异常。IExpectationSetters 提供了设定预期抛出异常的方法：
+            IExpectationSetters<T> andThrow(Throwable throwable);
+        和设定默认返回值类似，IExpectationSetters 接口也提供了设定抛出默认异常的函数：
+            void andStubThrow(Throwable throwable);
+    （3） 设定预期方法调用次数
+        通过以上的函数，您可以对 Mock 对象特定行为的预期输出进行设定。除了对预期输出进行设定，IExpectationSetters 接口
+        还允许用户对方法的调用次数作出限制。在 IExpectationSetters 所提供的这一类方法中，常用的一种是 times 方法：
+            IExpectationSetters<T>times(int count);
+        该方法可以 Mock 对象方法的调用次数进行确切的设定。假设我们希望 mockResultSet 的 getString 方法在测试过程中被
+        调用3次，期间的返回值都是 "My return value"，我们可以用如下语句：
+            mockResultSet.getString(1);
+        expectLastCall().andReturn("My return value").times(3);
+        注意到 andReturn 和 andThrow 方法的返回值依然是一个 IExpectationSetters 实例，因此我们可以在此基础上继续调用 times 方法。
+        除了设定确定的调用次数，IExpectationSetters 还提供了另外几种设定非准确调用次数的方法：
+            times(int minTimes, int maxTimes)：该方法最少被调用 minTimes 次，最多被调用 maxTimes 次。
+            atLeastOnce()：该方法至少被调用一次。
+            anyTimes()：该方法可以被调用任意次。
+        某些方法的返回值类型是 void，对于这一类方法，我们无需设定返回值，只要设置调用次数就可以了。以 ResultSet 接口的
+        close 方法为例，假设在测试过程中，该方法被调用3至5次：
+            mockResultSet.close();
+            expectLastCall().times(3, 5);
+        为了简化书写，EasyMock 还提供了另一种设定 Mock 对象行为的语句模式。对于上例，您还可以将它写成：
+            expect(mockResult.close()).times(3, 5);
+·将 Mock 对象切换到 Replay 状态
+·调用 Mock 对象方法进行单元测试
+·对 Mock 对象的行为进行验证
+
+
+
