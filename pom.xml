@@ -33,6 +33,7 @@
         <!-- JAVA SPI 模块 -->
         <module>java-spi</module>
         <module>java-junit-easymock</module>
+        <module>data-struct</module>
     </modules>
 
     <dependencies>
