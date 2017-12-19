@@ -13,6 +13,9 @@ public class One implements GradeState{
 
     @Override
     public int handle(MyRequest request) {
-        return 0;
+        if (request.getGrade() == 1) {
+            return 1;
+        }
+        return -1;
     }
 }

@@ -13,6 +13,9 @@ public class Three implements GradeState {
 
     @Override
     public int handle(MyRequest request) {
-        return 0;
+        if (request.getGrade() == 3) {
+            return 3;
+        }
+        return -1;
     }
 }
