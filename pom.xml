@@ -36,6 +36,7 @@
         <module>java-junit-easymock</module>
         <module>data-struct</module>
         <module>fastjson-example</module>
+        <module>juc-example</module>
     </modules>
 
     <dependencies>
