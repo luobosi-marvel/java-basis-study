@@ -13,6 +13,6 @@ public class RedTextField implements TextField{
 
     @Override
     public void textField() {
-        System.out.println("我是红色的文本域");
+        System.out.println("我是红色的文本域！");
     }
 }
