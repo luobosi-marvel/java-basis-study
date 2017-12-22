@@ -10,7 +10,6 @@ package com.luobosi.study.dp.factory.factory.method.pattern;
  * @since 2017-12-04
  */
 public class Main {
-
     public static void main(String[] args) {
         // 获取一个具体的工厂类
         Factory factory = new ConcreateProductAFactory();

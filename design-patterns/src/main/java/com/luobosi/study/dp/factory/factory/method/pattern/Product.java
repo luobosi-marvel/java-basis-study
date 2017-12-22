@@ -11,5 +11,8 @@ package com.luobosi.study.dp.factory.factory.method.pattern;
  */
 public interface Product {
 
+    /**
+     * 产品方法，打印一条消息
+     */
     void print();
 }
