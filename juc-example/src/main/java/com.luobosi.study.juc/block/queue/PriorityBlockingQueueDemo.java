@@ -7,6 +7,7 @@ import java.util.concurrent.PriorityBlockingQueue;
 
 /**
  * PriorityBlockingQueueDemo
+ * 优先级的阻塞队列
  *
  * @author luobosi@2dfire.com
  * @since 2017-12-22
