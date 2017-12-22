@@ -14,9 +14,7 @@ import com.luobosi.common.constant.Constants;
  */
 public class InitializationOnDemandHolderSingleton {
 
-    private InitializationOnDemandHolderSingleton() {
-
-    }
+    private InitializationOnDemandHolderSingleton() {}
 
     /**
      * 静态内部类，用来初始化 instance 对象，由于静态内部类只会加载一次，而且是在类加载的时候加载，
@@ -33,6 +31,4 @@ public class InitializationOnDemandHolderSingleton {
             i++;
         }
     }
-
-
 }

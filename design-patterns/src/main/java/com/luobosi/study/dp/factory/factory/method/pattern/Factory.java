@@ -11,5 +11,9 @@ package com.luobosi.study.dp.factory.factory.method.pattern;
  */
 public interface Factory {
 
+    /**
+     * 创建产品的方法
+     * @return 返回指定产品
+     */
     Product createProduct();
 }
