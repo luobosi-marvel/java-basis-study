@@ -23,7 +23,7 @@ public class Constants {
         Integer FIFTY = 50;
         Integer HUNDRED = 100;
         int FIVE = 5;
-
+        int TEN_THOUSAND = 10000;
     }
 
     /**

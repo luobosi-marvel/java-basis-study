@@ -20,7 +20,7 @@ public class TicketManager {
     }
 
     /**
-     * 根据用户输入的条件返回票
+     * 根据用户输入的条件返回票（需要加锁，还需要优化）
      *
      * @param from  出发地
      * @param to    到达地
