@@ -22,6 +22,7 @@ public class Constants {
         Integer THIRTY = 30;
         Integer FIFTY = 50;
         Integer HUNDRED = 100;
+        int FIVE = 5;
 
     }
 

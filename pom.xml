@@ -18,6 +18,7 @@
         <lombok.version>1.16.18</lombok.version>
         <guava.version>22.0</guava.version>
         <fastjson.version>1.2.43</fastjson.version>
+        <java.basis.common.version>1.0.0</java.basis.common.version>
     </properties>
 
     <modules>
@@ -67,7 +68,11 @@
             <scope>test</scope>
         </dependency>
 
-
+        <dependency>
+            <groupId>com.luobosi.study.common</groupId>
+            <artifactId>java-basis-common</artifactId>
+            <version>${java.basis.common.version}</version>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
