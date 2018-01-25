@@ -36,6 +36,7 @@ public class PipeExample {
                 }
             }
         }).start();
+
         // 线程2 用来接收管道输出流输出的内容
         new Thread(() -> {
             try {
@@ -55,6 +56,7 @@ public class PipeExample {
                 }
             }
         }).start();
+
     }
 
 }
