@@ -19,15 +19,26 @@ public class CyclicBarrierDemo {
         CyclicBarrier cyclicBarrier = new CyclicBarrier(5, ()-> System.out.println("到齐了，开会"));
 
         for (int i = 0; i < Constants.ConstantNumber.FIVE; i++) {
-            new Thread(()->{
-                try {
-                    Thread.sleep(1000L);
-                    cyclicBarrier.await();
-                    System.out.println(Thread.currentThread().getName());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }, "marvelous" + i).start();
+            if (i == 4) {
+                new Thread(() -> {
+                    try {
+                        cyclicBarrier.reset();
+                        System.out.println(Thread.currentThread().getName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, "marvelous" + i).start();
+            } else {
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(1000L);
+                        cyclicBarrier.await();
+                        System.out.println(Thread.currentThread().getName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }, "marvelous" + i).start();
+            }
         }
     }
 
