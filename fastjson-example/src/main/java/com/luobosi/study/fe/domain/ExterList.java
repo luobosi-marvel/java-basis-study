@@ -22,4 +22,11 @@ public class ExterList implements Serializable{
     public void setInnerList(List<InnerList> innerList) {
         this.innerList = innerList;
     }
+
+    @Override
+    public String toString() {
+        return "ExterList{" +
+                "innerList=" + innerList +
+                '}';
+    }
 }

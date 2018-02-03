@@ -20,4 +20,10 @@ public class CategoryList implements Serializable{
         return this.categories;
     }
 
+    @Override
+    public String toString() {
+        return "CategoryList{" +
+                "categories=" + categories +
+                '}';
+    }
 }

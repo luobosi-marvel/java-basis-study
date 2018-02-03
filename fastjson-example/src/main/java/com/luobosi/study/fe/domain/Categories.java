@@ -1,6 +1,9 @@
 package com.luobosi.study.fe.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -11,7 +14,7 @@ public class Categories implements Serializable {
 
     private static final long serialVersionUID = 2923600016902709926L;
 
-    private List<Children> children;
+    private int[] children;
 
     private int father;
 
@@ -23,14 +26,15 @@ public class Categories implements Serializable {
 
     private Qualify qualify;
 
-    private int sensitive_type;
+    @JSONField(name = "sensitive_type")
+    private int sensitiveType;
 
-    public void setChildren(List<Children> children) {
-        this.children = children;
+    public int[] getChildren() {
+        return children;
     }
 
-    public List<Children> getChildren() {
-        return this.children;
+    public void setChildren(int[] children) {
+        this.children = children;
     }
 
     public void setFather(int father) {
@@ -73,12 +77,24 @@ public class Categories implements Serializable {
         return this.qualify;
     }
 
-    public void setSensitive_type(int sensitive_type) {
-        this.sensitive_type = sensitive_type;
+    public int getSensitiveType() {
+        return sensitiveType;
     }
 
-    public int getSensitive_type() {
-        return this.sensitive_type;
+    public void setSensitiveType(int sensitiveType) {
+        this.sensitiveType = sensitiveType;
     }
 
+    @Override
+    public String toString() {
+        return "Categories{" +
+                "children=" + Arrays.toString(children) +
+                ", father=" + father +
+                ", id=" + id +
+                ", level=" + level +
+                ", name='" + name + '\'' +
+                ", qualify=" + qualify +
+                ", sensitiveType=" + sensitiveType +
+                '}';
+    }
 }

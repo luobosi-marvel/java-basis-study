@@ -29,4 +29,11 @@ public class InnerList implements Serializable {
         return this.url;
     }
 
+    @Override
+    public String toString() {
+        return "InnerList{" +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }
