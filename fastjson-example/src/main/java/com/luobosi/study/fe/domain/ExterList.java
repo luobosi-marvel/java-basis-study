@@ -5,6 +5,9 @@ import com.alibaba.fastjson.annotation.JSONField;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * @author luobosi@2dfire.com
+ */
 public class ExterList implements Serializable{
 
     private static final long serialVersionUID = 7784179978573995757L;

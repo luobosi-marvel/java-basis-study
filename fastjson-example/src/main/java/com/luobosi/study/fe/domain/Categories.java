@@ -1,8 +1,16 @@
 package com.luobosi.study.fe.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Categories {
+
+/**
+ * @author luobosi@2dfire.com
+ */
+public class Categories implements Serializable {
+
+    private static final long serialVersionUID = 2923600016902709926L;
+
     private List<Children> children;
 
     private int father;

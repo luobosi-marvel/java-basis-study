@@ -1,6 +1,13 @@
 package com.luobosi.study.fe.domain;
 
-public class InnerList {
+import java.io.Serializable;
+
+/**
+ * @author luobosi@2dfire.com
+ */
+public class InnerList implements Serializable {
+
+    private static final long serialVersionUID = -6801179299517408827L;
 
     private String name;
 
