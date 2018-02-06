@@ -4,13 +4,12 @@ import com.alibaba.fastjson.annotation.JSONField;
 
 import java.io.Serializable;
 import java.util.Arrays;
-import java.util.List;
 
 
 /**
  * @author luobosi@2dfire.com
  */
-public class Categories implements Serializable {
+public class Categorie implements Serializable {
 
     private static final long serialVersionUID = 2923600016902709926L;
 

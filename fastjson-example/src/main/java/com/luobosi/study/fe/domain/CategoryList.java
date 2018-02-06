@@ -10,13 +10,13 @@ public class CategoryList implements Serializable{
 
     private static final long serialVersionUID = 8475575891280595917L;
 
-    private List<Categories> categories;
+    private List<Categorie> categories;
 
-    public void setCategories(List<Categories> categories) {
+    public void setCategories(List<Categorie> categories) {
         this.categories = categories;
     }
 
-    public List<Categories> getCategories() {
+    public List<Categorie> getCategories() {
         return this.categories;
     }
 

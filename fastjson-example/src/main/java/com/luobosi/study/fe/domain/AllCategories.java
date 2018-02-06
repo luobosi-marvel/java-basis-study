@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @author luobosi@2dfire.com
  */
-public class Root implements Serializable{
+public class AllCategories implements Serializable{
 
     private static final long serialVersionUID = 3984086787974226593L;
 
@@ -22,6 +22,7 @@ public class Root implements Serializable{
     public void setCategoryList(CategoryList categoryList) {
         this.categoryList = categoryList;
     }
+
     @Override
     public String toString() {
         return "Root{" +
