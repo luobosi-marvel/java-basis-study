@@ -7,7 +7,7 @@ import java.io.Serializable;
 /**
  * @author luobosi@2dfire.com
  */
-public class AllCategories implements Serializable{
+public class AllCategories implements Serializable {
 
     private static final long serialVersionUID = 3984086787974226593L;
 
