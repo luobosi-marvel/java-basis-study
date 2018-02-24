@@ -8,7 +8,7 @@ import java.nio.channels.FileChannel;
 
 /**
  * FileChannelDemo
- * 两个文件通道之间传输数据
+ * Java NIO 通道之间的数据传输
  *
  * @author luobosi@2dfire.com
  * @since 2018-02-24
