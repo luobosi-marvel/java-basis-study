@@ -11,6 +11,12 @@ import java.nio.channels.Pipe;
  * NioPipe
  * Java NIO 管道是两个线程之间的单向数据连接。Pipe 有一个 source 通道和一个 sink 通道。数据会被写到 sink 通道，从
  * source 通道读取。
+ *                      |—————————— Pipe ———————————|
+ * |——————|       |                                                |        |——————|
+ * |  Thread A  | ——> |  |————————|       |————————|   | ——>  |  Thread B  |
+ * |——————|       |  |  Sink Channel  | ——> | Source Channel |   |        |——————|
+ *                      |  |————————|       |————————|   |
+ *                      |————————————————————————|
  *
  * 注意：Pipe 里面的数据都是一次性读取的，所以 ByteBuffer 的大小分配一定好合适，不能比实际数据小，否则会报
  * java.nio.BufferOverflowException 这个错误
