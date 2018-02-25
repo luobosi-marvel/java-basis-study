@@ -4,6 +4,7 @@
 package com.luobosi.aio;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
@@ -39,6 +40,12 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer>{
         byte[] message = new byte[byteBuffer.remaining()];
         byteBuffer.get(message);
 
+        try {
+            String expression = new String(message, "UTF-8");
+            System.out.println("服务器收到消息：" + expression);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
