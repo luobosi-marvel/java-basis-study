@@ -19,7 +19,7 @@ import java.nio.channels.Pipe;
  *                      |————————————————————————|
  *
  * 注意：Pipe 里面的数据都是一次性读取的，所以 ByteBuffer 的大小分配一定好合适，不能比实际数据小，否则会报
- * java.nio.BufferOverflowException 这个错误
+ * java.nio.BufferOverflowException 这个异常
  *
  * @author luobosi@2dfire.com
  * @since 2018-02-25
