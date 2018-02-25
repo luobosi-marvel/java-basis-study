@@ -24,7 +24,7 @@ public class SelectorClient {
         @Override
         public void run() {
             try {
-                int port = 1024;
+                int port = 1234;
                 SocketChannel socketChannel = SocketChannel.open();
                 socketChannel.configureBlocking(Boolean.FALSE);
                 socketChannel.connect(new InetSocketAddress(REMOTE_IP, port));
