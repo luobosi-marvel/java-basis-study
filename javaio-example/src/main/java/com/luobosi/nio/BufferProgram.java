@@ -19,7 +19,7 @@ public class BufferProgram {
 
     public static void main(String[] args) {
         try {
-            FileInputStream stream = new FileInputStream("d:\\test.txt");
+            FileInputStream stream = new FileInputStream("d:\\fromFile.txt");
 
             FileChannel channel = stream.getChannel();
 
