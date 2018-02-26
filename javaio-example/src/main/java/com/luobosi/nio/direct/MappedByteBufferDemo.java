@@ -26,10 +26,12 @@ public class MappedByteBufferDemo {
         byte[] bytes = new byte[(int) length];
 
         try {
+            // 创建一个 MappedByteBuffer
             MappedByteBuffer mappedByteBuffer = new RandomAccessFile(file, "r")
                     .getChannel()
                     .map(FileChannel.MapMode.READ_ONLY, 0, length);
 
+            // 将数据填充到字节数组中
             for (int offset = 0; offset < length; offset++) {
                 byte b = mappedByteBuffer.get();
                 bytes[offset] = b;
