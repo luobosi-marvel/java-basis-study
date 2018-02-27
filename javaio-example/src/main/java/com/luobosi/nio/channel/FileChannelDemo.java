@@ -8,7 +8,20 @@ import java.nio.channels.FileChannel;
 
 /**
  * FileChannelDemo
- * Java NIO 通道之间的数据传输
+ * Java NIO 通道之间的数据传输,FileChannel 是阻塞的，不能设置成非阻塞模型
+ *
+ * 1. 将数据写入 FileChannel
+ *      write()
+ * 2. 关闭 FileChannel      完成使用后，FileChannel 必须关闭它
+ *      close()
+ * 3. FileChannel 位置   对 FileChannel 进行读取或写入时，你会在特定的位置上这样做。通过调用 position() 方法获取对象当前位置
+ *      position()
+ * 4. FileChannel 大小
+ *      size()
+ * 5. FileChannel 截断 截断文件时，可以在给定的长度上将其截断
+ *      truncate(1024)
+ * 6. FileChannel Force 将所有未写入的数据从通道刷新到磁盘中
+ *      force()
  *
  * @author luobosi@2dfire.com
  * @since 2018-02-24
