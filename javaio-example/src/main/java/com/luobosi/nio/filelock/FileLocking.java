@@ -34,10 +34,11 @@ public class FileLocking {
             System.out.println("Locked File");
             try {
                 TimeUnit.MICROSECONDS.sleep(100);
-                fileLock.release();
-                System.out.println("Released Lock");
             } catch (InterruptedException e) {
                 e.printStackTrace();
+            }finally {
+                fileLock.release();
+                System.out.println("Released Lock");
             }
         }
         outputStream.close();
