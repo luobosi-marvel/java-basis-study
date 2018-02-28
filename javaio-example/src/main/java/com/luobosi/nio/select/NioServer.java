@@ -57,7 +57,7 @@ public class NioServer {
     }
 
     private void handleKey(SelectionKey selectionKey) throws IOException {
-
+        // SelectionKey 的 四个值
         System.out.println("selectionKey.interestOps(): " + selectionKey.interestOps());
 
         // 接受请求
