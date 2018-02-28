@@ -57,6 +57,7 @@ public class SelectorServer {
             // 遍历每一个 Key
             while (iterator.hasNext()) {
                 SelectionKey selectionKey = iterator.next();
+
                 // 通道上是否有可接受的连接
                 if (selectionKey.isAcceptable()) {
                     ServerSocketChannel channel = (ServerSocketChannel) selectionKey.channel();
