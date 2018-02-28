@@ -57,6 +57,9 @@ public class NioServer {
     }
 
     private void handleKey(SelectionKey selectionKey) throws IOException {
+
+        System.out.println("selectionKey.interestOps(): " + selectionKey.interestOps());
+
         // 接受请求
         ServerSocketChannel server = null;
         SocketChannel client = null;

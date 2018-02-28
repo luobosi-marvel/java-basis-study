@@ -1,5 +1,7 @@
 package com.luobosi.nio.select;
 
+import com.luobosi.common.constant.Constants;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
@@ -16,9 +18,13 @@ import java.util.Set;
  * @since 2018-02-28
  */
 public class NioClient {
-    /** 接受数据缓冲区 */
+    /**
+     * 接受数据缓冲区
+     */
     private static ByteBuffer sendbuffer = ByteBuffer.allocate(1024);
-    /** 发送数据缓冲区 */
+    /**
+     * 发送数据缓冲区
+     */
     private static ByteBuffer receivebuffer = ByteBuffer.allocate(1024);
 
     public static void main(String[] args) throws IOException {
@@ -39,9 +45,9 @@ public class NioClient {
         SocketChannel client;
         String receiveText;
         String sendText;
-        int count=0;
+        int count = 0;
 
-        while (true) {
+        while (count < Constants.ConstantNumber.FIVE) {
             // 选择一组键，其相应的通道已为 I/O 操作准备就绪。
             // 此方法执行处于阻塞模式的选择操作。
             selector.select();
@@ -69,10 +75,10 @@ public class NioClient {
                     // 将缓冲区清空以备下次读取
                     receivebuffer.clear();
                     // 读取服务器发送来的数据到缓冲区中
-                    count=client.read(receivebuffer);
-                    if(count>0){
-                        receiveText = new String( receivebuffer.array(),0,count);
-                        System.out.println("客户端接受服务器端数据--:"+receiveText);
+                    count = client.read(receivebuffer);
+                    if (count > 0) {
+                        receiveText = new String(receivebuffer.array(), 0, count);
+                        System.out.println("客户端接受服务器端数据--:" + receiveText);
                         client.register(selector, SelectionKey.OP_WRITE);
                     }
 
@@ -84,9 +90,10 @@ public class NioClient {
                     // 将缓冲区各标志复位,因为向里面put了数据标志被改变要想从中读取数据发向服务器,就要复位
                     sendbuffer.flip();
                     client.write(sendbuffer);
-                    System.out.println("客户端向服务器端发送数据--："+sendText);
+                    System.out.println("客户端向服务器端发送数据--：" + sendText);
                     client.register(selector, SelectionKey.OP_READ);
                 }
+                count ++;
             }
             selectionKeys.clear();
         }
