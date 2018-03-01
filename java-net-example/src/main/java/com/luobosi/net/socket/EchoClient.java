@@ -28,6 +28,7 @@ public class EchoClient {
 
     private PrintWriter getWriter(Socket socket) throws IOException {
         OutputStream outputStream = socket.getOutputStream();
+        // 打开强制刷新开关
         return new PrintWriter(outputStream, true);
     }
 
