@@ -38,6 +38,7 @@
         <module>data-struct</module>
         <module>fastjson-example</module>
         <module>juc-example</module>
+        <module>java-net-example</module>
     </modules>
 
     <dependencies>

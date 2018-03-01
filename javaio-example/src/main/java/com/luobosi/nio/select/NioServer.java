@@ -14,15 +14,24 @@ import java.util.Set;
 /**
  * NioServer
  *
+ * 每个选择器都有一组与之关联的信道，选择器对这些信道上"感兴趣的" I/O 操作进行监听。Selector 与 Channel 之间的关联
+ * 由一个 SelectionKey 实例表示。（注意一个信道可以注册多个 Selector 实例，因此可以有多个关联的 SelectionKey 实例）
+ * SelectionKey 维护了一个信道上感兴趣的操作类型信息，并将这些信息存放在一个 int 型的位中，该 int 型数据的每一位都有
+ * 相应的含义。
+ *
  * @author luobosi@2dfire.com
  * @since 2018-02-28
  */
 public class NioServer {
 
-    /** 接受数据缓冲区 */
+    /**
+     * 接受数据缓冲区
+     */
     private ByteBuffer sendbuffer = ByteBuffer.allocate(1024);
-    /** 发送数据缓冲区 */
-    private  ByteBuffer receivebuffer = ByteBuffer.allocate(1024);
+    /**
+     * 发送数据缓冲区
+     */
+    private ByteBuffer receivebuffer = ByteBuffer.allocate(1024);
 
     private Selector selector;
 
@@ -65,7 +74,7 @@ public class NioServer {
         SocketChannel client = null;
         String receiveText;
         String sendText;
-        int count=0;
+        int count = 0;
         // 测试此键的通道是否已准备好接受新的套接字连接。
         if (selectionKey.isAcceptable()) {
             // 返回为之创建此键的通道。
@@ -85,8 +94,8 @@ public class NioServer {
             //读取服务器发送来的数据到缓冲区中
             count = client.read(receivebuffer);
             if (count > 0) {
-                receiveText = new String( receivebuffer.array(),0,count);
-                System.out.println("服务器端接受客户端数据--:"+receiveText);
+                receiveText = new String(receivebuffer.array(), 0, count);
+                System.out.println("服务器端接受客户端数据--:" + receiveText);
                 client.register(selector, SelectionKey.OP_WRITE);
             }
         } else if (selectionKey.isWritable()) {
@@ -94,22 +103,22 @@ public class NioServer {
             sendbuffer.clear();
             // 返回为之创建此键的通道。
             client = (SocketChannel) selectionKey.channel();
-            sendText="message from server--";
+            sendText = "message from server--";
             //向缓冲区中输入数据
             sendbuffer.put(sendText.getBytes());
             //将缓冲区各标志复位,因为向里面put了数据标志被改变要想从中读取数据发向服务器,就要复位
             sendbuffer.flip();
             //输出到通道
             client.write(sendbuffer);
-            System.out.println("服务器端向客户端发送数据--："+sendText);
+            System.out.println("服务器端向客户端发送数据--：" + sendText);
             client.register(selector, SelectionKey.OP_READ);
         }
     }
 
     /**
-    * @param args
-    * @throws IOException
-    */
+     * @param args
+     * @throws IOException
+     */
     public static void main(String[] args) throws IOException {
         int port = 8080;
         NioServer server = new NioServer(port);
