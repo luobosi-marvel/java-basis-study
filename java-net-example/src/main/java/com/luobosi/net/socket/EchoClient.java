@@ -54,6 +54,8 @@ public class EchoClient {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
+            // 关闭 socket
+            socket.close();
         }
     }
 }
