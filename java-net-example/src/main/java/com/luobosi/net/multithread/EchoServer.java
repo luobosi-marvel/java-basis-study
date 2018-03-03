@@ -18,6 +18,7 @@ import java.net.Socket;
 public class EchoServer {
 
     private static final int PORT = 8000;
+
     private ServerSocket serverSocket;
 
     public EchoServer() throws IOException {
@@ -52,6 +53,7 @@ public class EchoServer {
 class Handler implements Runnable {
 
     private Socket socket;
+    private static final String BYE = "bye";
 
     public Handler(Socket socket) {
         this.socket = socket;
@@ -71,6 +73,31 @@ class Handler implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("New connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
+        try {
+            System.out.println("New connection accepted " + socket.getInetAddress() + ":" + socket.getPort());
+
+            BufferedReader reader = getReader(socket);
+            PrintWriter writer = getWriter(socket);
+
+            String msg = null;
+            // 接收和发送数据，知道通信结束
+            while ((msg = reader.readLine()) != null) {
+                System.out.println(msg);
+                writer.println(echo(msg));
+                if (BYE.equals(msg)) {
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != socket) {
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
