@@ -1,0 +1,10 @@
+    TCP 是面向连接的可靠的传输协议，而 UDP 是无连接的不可靠的传输协议。DatagramSocket 及 DatagramChannel 都建立在
+UDP 的基础上，当通过它们发送数据报时，如果数据报未送达目的地，发送方不会得到任何通知，程序不会抛出异常；当通过它们
+接收数据报时，如果用于村法国数据报的缓冲区的容量小于接收到的数据报的大小，那么多余的数据会被丢弃，接收方不会得到任何
+通知，程序不会抛出异常。
+    DatagramSocket 与 DatagramPacket 搭配使用，DatagramPacket 用来存放接收或发送的数据报。DatagramChannel 与 ByteBuffer
+搭配使用，ByteBuffer 用来存放接收或发送的数据报。DatagramSocket 只能工作与阻塞模式，而 DatagramChannel 支持阻塞和非阻塞
+两种模式。
+    MulticastSocket 是 DatagramSocket 的子类，它能发送和接收组播数据报。MulticastSocket 必须加入到一个组播中，才能接收
+发往该组的数据报。组播组内的所有 MulticastSocket 共享同一个组播的 IP 地址。组播 IP 地址介于 224.0.0.0 ~ 239.255.255.255
+之间。
