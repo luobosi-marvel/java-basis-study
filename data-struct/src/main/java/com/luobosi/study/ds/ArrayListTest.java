@@ -3,6 +3,7 @@
  */
 package com.luobosi.study.ds;
 
+import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.Lists;
 
 import java.util.Iterator;
@@ -24,13 +25,15 @@ public class ArrayListTest {
      * @param args
      */
     public static void main(String[] args) {
+        int inline=0;
 //        remove();
 //        foreachRemove();
 //        foreachRemove2();
 //        iteratorRemove();
 //        iteratorRemove2();
 //        removeEven();
-        correctRemove();
+//        correctRemove();
+        testt();
         // 遍历集合
         integers.stream().forEach(System.out::println);
     }
@@ -142,6 +145,13 @@ public class ArrayListTest {
     }
     static void revoew(Integer i) {
         System.out.println("我是对象");
+    }
+
+
+    static void testt() {
+        List<Integer> suList = integers.subList(0, 3);
+        integers.add(1, 90);
+        suList.forEach(System.out::println);
     }
 }
 

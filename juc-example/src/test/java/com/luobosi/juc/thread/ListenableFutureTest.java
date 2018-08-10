@@ -60,6 +60,8 @@ public class ListenableFutureTest {
         return "test print result 3";
     }
 
+
+
     public static void main(String[] args) {
         System.out.println(System.currentTimeMillis());
         try {
@@ -70,6 +72,7 @@ public class ListenableFutureTest {
             System.out.println(System.currentTimeMillis());
             service.shutdownNow();
         }
+
     }
 
 //        for (int i =0 ;i<12;i++){

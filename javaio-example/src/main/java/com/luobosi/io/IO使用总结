@@ -14,6 +14,7 @@
 特殊流      DataInputStream      DataOutputStream
 
 InputStream & Reader
+·FileInputStream 现在都使用 nio 中的 channel 来传输数据，避免了以前那种一个字节一个字节读取数据的尴尬
 ·InputStream 和 Reader 是所有输入流的基类
 ·InputStream （典型实现：FileInputStream）
     ·int read()

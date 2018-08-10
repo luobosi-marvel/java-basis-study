@@ -15,9 +15,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * FuturesUtilTest
@@ -137,5 +138,32 @@ public class FuturesUtilTest {
         return Lists.newArrayList("test print result 1", "22222");
     }
 
+    @Test
+    public void tesss() {
+
+        Map<Long, Map<String, List<String>>> map = new TreeMap<>();
+
+        Map<String, List<String>> map1 = new HashMap<>();
+
+        List<String> list = new ArrayList<>();
+
+        map.put(1L, map1);
+
+        map1.put("1", list);
+
+        list.add("2");
+
+        List<Map<String, List<String>>> list1 = new ArrayList<>(map.values());
+
+        list1.forEach(System.out::println);
+
+    }
+
+    @Test
+    public void testsss() {
+        Map<String, String> map = new HashMap<>();
+
+        System.out.println(map.get("1"));
+    }
 
 }
