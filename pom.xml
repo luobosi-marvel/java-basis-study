@@ -39,6 +39,7 @@
         <module>fastjson-example</module>
         <module>juc-example</module>
         <module>java-net-example</module>
+        <module>java-delay-queue</module>
     </modules>
 
     <dependencies>
