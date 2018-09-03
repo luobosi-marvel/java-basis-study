@@ -40,6 +40,7 @@
         <module>juc-example</module>
         <module>java-net-example</module>
         <module>java-delay-queue</module>
+        <module>java-rxjava-example</module>
     </modules>
 
     <dependencies>
