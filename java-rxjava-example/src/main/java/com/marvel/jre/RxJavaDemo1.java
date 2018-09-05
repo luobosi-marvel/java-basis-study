@@ -27,14 +27,16 @@ public class RxJavaDemo1 {
         rxJavaDemo1.fun4();
         System.out.println();
         rxJavaDemo1.fun5();
+        System.out.println();
+        rxJavaDemo1.fun6();
 
     }
 
-    public void fun1() {
+    private void fun1() {
         Observable.just("Hello World").subscribe(System.out::println);
     }
 
-    public void fun2() {
+    private void fun2() {
         Observable.just("Hello World")
                 .subscribe(
                         System.out::println,
@@ -42,7 +44,7 @@ public class RxJavaDemo1 {
                         () -> System.out.println("onComplete"));
     }
 
-    public void fun3() {
+    private void fun3() {
         Observable.just("Hello World")
                 .subscribe(
                         System.out::println,
@@ -51,7 +53,7 @@ public class RxJavaDemo1 {
                         disposable -> System.out.println("subscribe"));
     }
 
-    public void fun4() {
+    private void fun4() {
         Observable.just("Hello World")
                 .subscribe(new Observer<String>() {
                     @Override
@@ -79,7 +81,7 @@ public class RxJavaDemo1 {
     /**
      * do 操作
      */
-    public void fun5() {
+    private void fun5() {
         Observable.just("hello")
                 .doOnNext(s -> System.out.println("doOnNext: " + s))
                 .doAfterNext(s -> System.out.println("doAfterNext: " + s))
@@ -93,5 +95,14 @@ public class RxJavaDemo1 {
                 // 订阅后可以取消订阅
                 .doOnLifecycle(disposable -> System.out.println("doOnLifecycle: " + disposable.isDisposed()), () -> System.out.println("doOnLifecycle run: "))
                 .subscribe(s -> System.out.println("收到的消息: " + s));
+    }
+
+    /**
+     * map 操作详解
+     */
+    private void fun6() {
+        Observable.range(0, 10)
+                .map(integer -> integer + "marvel")
+                .subscribe(System.out::println);
     }
 }

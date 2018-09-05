@@ -36,7 +36,7 @@ public class RxJavaDemo2 {
     /**
      * Observer 会接收 AsyncSubject 的 onComplete() 之前的最后一个数据
      */
-    public void asyncSubject() {
+    private void asyncSubject() {
         AsyncSubject<Object> asyncSubject = AsyncSubject.create();
 
         asyncSubject.onNext("asyncSubject1");
@@ -59,7 +59,7 @@ public class RxJavaDemo2 {
      *
      * BehaviorSubject 每次只会发射调用 subject() 方法之前的最后一个事件和调用 subscribe() 方法之后的事件
      */
-    public void behaviorSubject() {
+    private void behaviorSubject() {
         BehaviorSubject<Object> behaviorSubject = BehaviorSubject.createDefault("defaultBehaviorSubject");
 
         //
@@ -80,7 +80,7 @@ public class RxJavaDemo2 {
      * 从并发的角度来看，ReplaySubject 在处理并发 subject() 和 onNext() 时会更加复杂。
      * ReplaySubject 除了可以限制缓存数据的数量，还能限制缓存的时间，使用 createWithTime() 即可。
      */
-    public void replaySubject() {
+    private void replaySubject() {
 
         ReplaySubject<Object> replaySubject = ReplaySubject.create();
 
@@ -98,7 +98,7 @@ public class RxJavaDemo2 {
     /**
      * Observer 只接收 PublishSubject 被订阅之后 onComplete() 之前的数据
      */
-    public void publishSubject() {
+    private void publishSubject() {
         PublishSubject<Object> publishSubject = PublishSubject.create();
 
         publishSubject.onNext("publishSubject1");
