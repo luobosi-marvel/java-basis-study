@@ -7,6 +7,8 @@ package com.marvel.jre;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 
 /**
  * RxJavaDemo1
@@ -104,5 +106,30 @@ public class RxJavaDemo1 {
         Observable.range(0, 10)
                 .map(integer -> integer + "marvel")
                 .subscribe(System.out::println);
+    }
+
+    private void fun7() {
+        Observable.just("Hello World")
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        System.out.println(s);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        System.out.println(throwable.getMessage());
+                    }
+                }, new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        System.out.println("onComplete()");
+                    }
+                }, new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        System.out.println("subscribe");
+                    }
+                });
     }
 }

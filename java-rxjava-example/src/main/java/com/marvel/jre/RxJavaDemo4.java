@@ -42,4 +42,6 @@ public class RxJavaDemo4 {
                 .observeOn(Schedulers.newThread())
                 .subscribe(System.out::println);
     }
+
+
 }
