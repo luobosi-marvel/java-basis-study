@@ -41,6 +41,8 @@
         <module>java-net-example</module>
         <module>java-delay-queue</module>
         <module>java-rxjava-example</module>
+        <module>rpc-server</module>
+        <module>rpc-client</module>
     </modules>
 
     <dependencies>
