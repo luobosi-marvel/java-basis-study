@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans>
+    <marvel-service ref="marvelService"
+                    interface="com.marvel.service.IMarvelFacade"
+                    version="marvel-version"/>
+
+    <marvel-service ref="helloService"
+                    interface="com.marvel.service.IHelloFacade"
+                    version="marvel-version"/>
+</beans>
