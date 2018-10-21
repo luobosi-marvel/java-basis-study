@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2009-2018 Hangzhou 2Dfire Technology Co., Ltd. All rights reserved
  */
-package com.marvel.rs;
+package com.marvel.rs.simple;
 
 import com.luobosi.common.dto.UserDTO;
 import com.luobosi.common.facade.IHelloFacade;
