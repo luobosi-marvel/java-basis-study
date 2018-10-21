@@ -17,6 +17,8 @@ import java.util.List;
 
 /**
  * WolverineNamespaceHandler
+ * 这里用来解析我们暴露出去的服务，那么我们需要为我们的服务创建代理类型
+ *
  *
  * @author luobosi@2dfire.com
  * @since 2018-10-20
