@@ -28,6 +28,8 @@ public class RemoteInvocationHandler implements InvocationHandler {
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
         RpcRequest request = new RpcRequest();
+        // 类的全限定名称
+        request.setClassName("com.luobosi.common.facade.IUserFacade.java");
         request.setMethodName(method.getName());
         request.setParameters(args);
 

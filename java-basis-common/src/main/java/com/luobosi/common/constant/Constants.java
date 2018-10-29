@@ -35,4 +35,15 @@ public class Constants {
         /** 产品B 的类名 */
         String CONCREATE_PRODUCT_B = "ConcreateProductB";
     }
+
+    /**
+     * 自定义 RPC 框架金刚狼系列
+     */
+    public interface Wolverine {
+
+        String INTERFACE_KEY = "interface";
+
+        String INTERFACES = "interfaces";
+    }
+
 }

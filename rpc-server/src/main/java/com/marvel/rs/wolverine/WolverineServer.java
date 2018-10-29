@@ -3,11 +3,8 @@
  */
 package com.marvel.rs.wolverine;
 
-import com.marvel.rs.wolverine.config.ServiceConfig;
-import com.marvel.rs.wolverine.schema.WolverineNamespaceHandler;
-import com.marvel.rs.wolverine.zk.ZookeeperRegistry;
 
-import java.util.List;
+import com.marvel.rs.wolverine.proxy.RpcServerProxy;
 
 /**
  * WolverineServer
@@ -17,14 +14,8 @@ import java.util.List;
  */
 public class WolverineServer {
 
-    public static void main(String[] args) throws InterruptedException {
-        /*WolverineNamespaceHandler namespaceHandler = new WolverineNamespaceHandler();
-        List<ServiceConfig> parse = namespaceHandler.parse();
-        System.out.println(parse);*/
-
-        ZookeeperRegistry zookeeperRegistry = new ZookeeperRegistry();
-        zookeeperRegistry.registerRootPath();
-
-        Thread.sleep(10000);
+    public static void main(String[] args) {
+        RpcServerProxy serverProxy = new RpcServerProxy();
+        serverProxy.publisher(8080);
     }
 }

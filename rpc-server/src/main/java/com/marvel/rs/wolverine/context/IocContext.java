@@ -26,10 +26,6 @@ public class IocContext {
      */
     public static final Map<Class<?> /* 使用了 @Component 和 @Service 注解的类类型*/, Object> applicationContext = new ConcurrentHashMap<>();
 
-    /**
-     * 通过 key 获取所有初始化的 对象
-     */
-    public static final Map<String/* @Service 注解里面配置的 value */, Object> serviceApplicationContext = new ConcurrentHashMap<>();
 
     static {
         // 这里可以通过 @ScanComponent 注解注入 后期优化
@@ -65,13 +61,6 @@ public class IocContext {
             //判断该类是否实现了注解
             if (clazz.isAnnotationPresent(Component.class) || clazz.isAnnotationPresent(Service.class)) {
                 try {
-                    /*if (clazz.isAnnotationPresent(Service.class)) {
-                        Service annotation = (Service) clazz.getAnnotation(Service.class);
-                        if (!"".equals(annotation.value())) {
-                            // 往 service 里面添加对象
-                            serviceApplicationContext.put(annotation.value(), clazz.newInstance());
-                        }
-                    }*/
                     applicationContext.put(clazz, clazz.newInstance());
                 } catch (InstantiationException | IllegalAccessException e) {
                     e.printStackTrace();
