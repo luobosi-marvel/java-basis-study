@@ -4,7 +4,6 @@
 package com.marvel.rs.wolverine.net;
 
 import java.net.InetAddress;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 

@@ -1,10 +1,16 @@
 package com.marvel.rs.wolverine.net;
 
+import com.luobosi.common.constant.Constants;
+import com.marvel.rs.wolverine.util.CollectionUtils;
+
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public /**final**/ class URL implements Serializable {
 
@@ -57,7 +63,7 @@ public /**final**/ class URL implements Serializable {
     }
 
     public URL(String protocol, String host, int port, String[] pairs) { // varargs ... confilict with the following path argument, use array instead.
-        this(protocol, null, null, host, port, null, CollectionUtils.toStringMap(pairs));
+        this(protocol, null, null, host, port, null, "");
     }
 
     public URL(String protocol, String host, int port, Map<String, String> parameters) {
@@ -69,7 +75,7 @@ public /**final**/ class URL implements Serializable {
     }
 
     public URL(String protocol, String host, int port, String path, String... pairs) {
-        this(protocol, null, null, host, port, path, CollectionUtils.toStringMap(pairs));
+        this(protocol, null, null, host, port, path, "");
     }
 
     public URL(String protocol, String host, int port, String path, Map<String, String> parameters) {
@@ -263,12 +269,20 @@ public /**final**/ class URL implements Serializable {
      * Pls. note that IP should be used instead of Host when to compare with socket's address or to search in a map
      * which use address as its key.
      *
-     * @return ip in string format
+     * @return ip in string format    public static Map<String, String> toStringMap(String... pairs) {
+     *         Map<String, String> parameters = new HashMap<String, String>();
+     *         if (pairs.length > 0) {
+     *             if (pairs.length % 2 != 0) {
+     *                 throw new IllegalArgumentException("pairs must be even.");
+     *             }
+     *             for (int i = 0; i < pairs.length; i = i + 2) {
+     *                 parameters.put(pairs[i], pairs[i + 1]);
+     *             }
+     *         }
+     *         return parameters;
+     *     }
      */
     public String getIp() {
-        if (ip == null) {
-            ip = NetUtils.getIpByHost(host);
-        }
         return ip;
     }
 
@@ -345,7 +359,7 @@ public /**final**/ class URL implements Serializable {
     public String getParameter(String key) {
         String value = parameters.get(key);
         if (value == null || value.length() == 0) {
-            value = parameters.get(Constants.DEFAULT_KEY_PREFIX + key);
+            value = parameters.get(Constants.Wolverine.INTERFACE_KEY + key);
         }
         return value;
     }
@@ -363,7 +377,7 @@ public /**final**/ class URL implements Serializable {
         if (value == null || value.length() == 0) {
             return defaultValue;
         }
-        return Constants.COMMA_SPLIT_PATTERN.split(value);
+        return Constants.Wolverine.INTERFACE_KEY.split(value);
     }
 
     private Map<String, Number> getNumbers() {
@@ -784,14 +798,6 @@ public /**final**/ class URL implements Serializable {
         return value != null && value.length() > 0;
     }
 
-    public boolean isLocalHost() {
-        return NetUtils.isLocalHost(host) || getParameter(Constants.LOCALHOST_KEY, false);
-    }
-
-    public boolean isAnyHost() {
-        return Constants.ANYHOST_VALUE.equals(host) || getParameter(Constants.ANYHOST_KEY, false);
-    }
-
     public URL addParameterAndEncoded(String key, String value) {
         if (value == null || value.length() == 0) {
             return this;
@@ -944,7 +950,7 @@ public /**final**/ class URL implements Serializable {
         if (query == null || query.length() == 0) {
             return this;
         }
-        return addParameters(StringUtils.parseQueryString(query));
+        return addParameters("");
     }
 
     public URL removeParameter(String key) {
@@ -1159,12 +1165,12 @@ public /**final**/ class URL implements Serializable {
             return null;
         }
         StringBuilder buf = new StringBuilder();
-        String group = getParameter(Constants.GROUP_KEY);
+        String group = getParameter(Constants.Wolverine.INTERFACE_KEY);
         if (group != null && group.length() > 0) {
             buf.append(group).append("/");
         }
         buf.append(inf);
-        String version = getParameter(Constants.VERSION_KEY);
+        String version = getParameter(Constants.Wolverine.INTERFACE_KEY);
         if (version != null && version.length() > 0) {
             buf.append(":").append(version);
         }
@@ -1179,107 +1185,13 @@ public /**final**/ class URL implements Serializable {
         return buildString(true, false, true, true);
     }
 
-    @Deprecated
-    public String getServiceName() {
-        return getServiceInterface();
-    }
 
     public String getServiceInterface() {
-        return getParameter(Constants.INTERFACE_KEY, path);
+        return getParameter(Constants.Wolverine.INTERFACE_KEY, path);
     }
 
     public URL setServiceInterface(String service) {
-        return addParameter(Constants.INTERFACE_KEY, service);
-    }
-
-    /**
-     * @see #getParameter(String, int)
-     * @deprecated Replace to <code>getParameter(String, int)</code>
-     */
-    @Deprecated
-    public int getIntParameter(String key) {
-        return getParameter(key, 0);
-    }
-
-    /**
-     * @see #getParameter(String, int)
-     * @deprecated Replace to <code>getParameter(String, int)</code>
-     */
-    @Deprecated
-    public int getIntParameter(String key, int defaultValue) {
-        return getParameter(key, defaultValue);
-    }
-
-    /**
-     * @see #getPositiveParameter(String, int)
-     * @deprecated Replace to <code>getPositiveParameter(String, int)</code>
-     */
-    @Deprecated
-    public int getPositiveIntParameter(String key, int defaultValue) {
-        return getPositiveParameter(key, defaultValue);
-    }
-
-    /**
-     * @see #getParameter(String, boolean)
-     * @deprecated Replace to <code>getParameter(String, boolean)</code>
-     */
-    @Deprecated
-    public boolean getBooleanParameter(String key) {
-        return getParameter(key, false);
-    }
-
-    /**
-     * @see #getParameter(String, boolean)
-     * @deprecated Replace to <code>getParameter(String, boolean)</code>
-     */
-    @Deprecated
-    public boolean getBooleanParameter(String key, boolean defaultValue) {
-        return getParameter(key, defaultValue);
-    }
-
-    /**
-     * @see #getMethodParameter(String, String, int)
-     * @deprecated Replace to <code>getMethodParameter(String, String, int)</code>
-     */
-    @Deprecated
-    public int getMethodIntParameter(String method, String key) {
-        return getMethodParameter(method, key, 0);
-    }
-
-    /**
-     * @see #getMethodParameter(String, String, int)
-     * @deprecated Replace to <code>getMethodParameter(String, String, int)</code>
-     */
-    @Deprecated
-    public int getMethodIntParameter(String method, String key, int defaultValue) {
-        return getMethodParameter(method, key, defaultValue);
-    }
-
-    /**
-     * @see #getMethodPositiveParameter(String, String, int)
-     * @deprecated Replace to <code>getMethodPositiveParameter(String, String, int)</code>
-     */
-    @Deprecated
-    public int getMethodPositiveIntParameter(String method, String key, int defaultValue) {
-        return getMethodPositiveParameter(method, key, defaultValue);
-    }
-
-    /**
-     * @see #getMethodParameter(String, String, boolean)
-     * @deprecated Replace to <code>getMethodParameter(String, String, boolean)</code>
-     */
-    @Deprecated
-    public boolean getMethodBooleanParameter(String method, String key) {
-        return getMethodParameter(method, key, false);
-    }
-
-    /**
-     * @see #getMethodParameter(String, String, boolean)
-     * @deprecated Replace to <code>getMethodParameter(String, String, boolean)</code>
-     */
-    @Deprecated
-    public boolean getMethodBooleanParameter(String method, String key, boolean defaultValue) {
-        return getMethodParameter(method, key, defaultValue);
+        return addParameter(Constants.Wolverine.INTERFACE_KEY, service);
     }
 
     @Override

@@ -3,13 +3,6 @@
  */
 package com.marvel.jre;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * RxJavaDemo6
  *
