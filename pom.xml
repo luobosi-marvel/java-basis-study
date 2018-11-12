@@ -43,6 +43,7 @@
         <module>java-rxjava-example</module>
         <module>rpc-server</module>
         <module>rpc-client</module>
+        <module>java-jdbc-example</module>
     </modules>
 
     <dependencies>
