@@ -27,6 +27,8 @@ public class ArgsTest {
                 add("order3");
             }
         };
+
+        redisOrderIds.addAll(null);
         String[] values = new String[redisOrderIds.size()];
 
         redisOrderIds.toArray(values);
