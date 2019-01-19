@@ -77,6 +77,7 @@ public class NioServer {
         int count = 0;
         // 测试此键的通道是否已准备好接受新的套接字连接。
         if (selectionKey.isAcceptable()) {
+
             // 返回为之创建此键的通道。
             server = (ServerSocketChannel) selectionKey.channel();
             // 接受到此通道套接字的连接。
@@ -87,6 +88,7 @@ public class NioServer {
             // 注册到selector，等待连接
             client.register(selector, SelectionKey.OP_READ);
         } else if (selectionKey.isReadable()) {
+            System.out.println("接收到一个读事件");
             // 返回为之创建此键的通道。
             client = (SocketChannel) selectionKey.channel();
             //将缓冲区清空以备下次读取

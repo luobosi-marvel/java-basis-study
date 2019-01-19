@@ -29,7 +29,7 @@ public final class SimpleServer {
                     .handler(new SimpleServerHandler())
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        protected void initChannel(SocketChannel channel) throws Exception {
+                        protected void initChannel(SocketChannel channel) {
                             System.out.println("socketChannel" + channel);
                         }
                     });
@@ -45,17 +45,17 @@ public final class SimpleServer {
 
     private static class SimpleServerHandler extends ChannelInboundHandlerAdapter {
         @Override
-        public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        public void channelActive(ChannelHandlerContext ctx) {
             System.out.println("channelActive");
         }
 
         @Override
-        public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+        public void channelRegistered(ChannelHandlerContext ctx) {
             System.out.println("channelRegistered");
         }
 
         @Override
-        public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+        public void handlerAdded(ChannelHandlerContext ctx) {
             System.out.println("handlerAdded");
         }
     }
