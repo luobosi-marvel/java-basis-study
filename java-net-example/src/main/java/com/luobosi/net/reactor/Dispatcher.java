@@ -49,7 +49,8 @@ public class Dispatcher {
     private void dispatch() {
         while (true) {
             List<Event> events = selector.select();
-
+            // 循环处理这里是线性的
+            // 可以采用 RxJava 改造成并行的
             for (Event event : events) {
                 EventHandler eventHandler = eventHandlerMap.get(event.getType());
                 eventHandler.handle(event);
