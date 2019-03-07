@@ -11,6 +11,10 @@ package com.luobosi.common.demo;
  */
 public class ValidateUtil {
 
+    private ValidateUtil() {
+
+    }
+
     /**
      * 检查对象是否为空,如果对象不为空则返回该对象
      *
